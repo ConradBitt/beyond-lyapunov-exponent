@@ -15,7 +15,7 @@ This repository contains the scripts and numerical simulation code used in the s
 If you use this code in your research, please cite the associated article:
 *[Insert Full Article Reference Here]*
 
-**License:**
+## **License:**
 This project is licensed under the **MIT** license. Feel free to use, modify, and distribute the code.
 
 MIT License
@@ -39,3 +39,30 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+## Environment Setup and Configuration
+
+To ensure the reproducibility of the simulations, this repository includes the `environment.yml` file, which defines all necessary dependencies. Follow the steps below to clone the repository and set up the environment:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <YOUR_REPOSITORY_URL>
+    cd <REPOSITORY_NAME>
+    ```
+
+2.  **Create the Conda environment:**
+    Run the following command to create an isolated environment and install the listed dependencies:
+    ```bash
+    conda env create -f environment.yml
+    ```
+
+3.  **Activate the environment:**
+    ```bash
+    conda activate beyond-lyapunov
+    ```
+
+4.  **Execution:**
+    With the environment active, the simulation and analysis scripts are ready to run.
+
+If you need to update the environment after making changes to the YAML file, use the command `conda env update -f environment.yml --prune`.
