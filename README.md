@@ -47,8 +47,8 @@ To ensure the reproducibility of the simulations, this repository includes the `
 
 1.  **Clone the repository:**
     ```bash
-    git clone <YOUR_REPOSITORY_URL>
-    cd <REPOSITORY_NAME>
+    git clone https://github.com/ConradBitt/beyond-lyapunov-exponent.git
+    cd beyond-lyapunov-exponent
     ```
 
 2.  **Create the Conda environment:**
