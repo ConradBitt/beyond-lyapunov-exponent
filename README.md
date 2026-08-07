@@ -5,8 +5,8 @@ This repository contains the scripts and numerical simulation code used in the s
 **Key Features:**
 *   **Model:** Implementation of two symmetrically coupled Hénon maps.
 *   **Implemented Analyses:**
-    *   Calculation of Finite Time Lyapunov Exponents (largest and transversal).
-    *   Periodicity detection and escape time statistics.
+    *   Calculation of **Finite Time Lyapunov Exponents** (largest and transversal).
+    *   **Periodicity** detection and **escape time** statistics.
     *   Calculation of **Basin Stability** and **Basins entropies**.
     *   Estimation of **uncertainty exponent** and **analysis of basin geometry** (including “riddled” basins).
 *   **Objective:** To reproduce the results demonstrating how periodic structures embedded in crisis regions exhibit transverse instability and severe loss of predictability, requiring metrics beyond the standard Lyapunov exponent.
