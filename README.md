@@ -95,12 +95,12 @@ The repository already includes the main scripts and rendered outputs used throu
 
 ![Basin entropy and uncertainty exponent as a function of the control parameter](figures/fig4_entropies_by_aparam.png)
 
-*Figure 4. Basin entropy, boundary entropy, fractal dimension, and basin stability computed as the control parameter varies. The highlighted regimes R1, R2, and R3 summarize the contrast between regular periodic behavior, escape dynamics, and riddled-basin-like behavior.*
+*Figure 4. Basin entropy, boundary entropy, fractal dimension, and basin stability computed as the control parameter varies. The highlighted regimes R1 and R2 summarize the contrast between regular periodic behavior at two different regions.*
 
 ### 5. Representative basin geometries
 
-![Representative basin geometries for R1, R2, and R3](figures/basins_combined_R1R2_revised.png)
+![Representative basin geometries for R1 and R2](figures/basins_combined_R1R2_revised.png)
 
 *Figure 5. Representative basin geometries for the three dynamical regimes together with the uncertainty-exponent fits. The left panels show the basins themselves, while the right panel compares the scaling of the uncertain fraction across the regimes.*
 
-Additional basin snapshots are available in [`figures/basins/`](figures/basins/), including the parameter values `a = 1.4600`, `a = 1.5000`, and `a = 1.5250`.
+Additional basin snapshots are available in [`figures/basins/`](figures/basins/), including the parameter values `a = 1.4600` and `a = 1.5250`.
