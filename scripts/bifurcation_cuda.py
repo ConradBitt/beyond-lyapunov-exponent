@@ -37,15 +37,15 @@ from numba import prange
 # ============================================================
 
 RECALCULATE = True
-EPSILON = 0.0#219
+EPSILON = 0.0219
 A_VALS = np.linspace(1.40, 1.65, 4000)
 B_FIXED = 0.225
 N_ITER = 60_000
 TRANSIENT = 50_000
-WINDOW = 10
+WINDOW = 100
 ESCAPE_RADIUS = 1e6
 DELTA = 1e-15
-MAX_PERIOD = 64
+MAX_PERIOD = 16
 TOTAL_TIME = int(1e6)
 BIF_POINTS = 300
 

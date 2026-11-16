@@ -591,7 +591,7 @@ params = [a, b, sigma]
 delta = np.float64(1e-15)
 
 total_time = 10_000       # tempo maximo para a bacia completa (GPU)
-unc_max_time = 2_000      # tempo maximo para o expoente de incerteza (CPU)
+unc_max_time = 10_000      # tempo maximo para o expoente de incerteza (CPU)
 
 grid_size = 4000
 bound_limit = 2

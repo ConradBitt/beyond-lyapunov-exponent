@@ -29,23 +29,17 @@ from numba import prange
 # ============================================================
 # CONFIGURAÇÕES
 # ============================================================
-
 EPSILON = 0.0219
 
-A_VALS = np.linspace(1.4, 1.70, 500)
-B_VALS = np.linspace(0.05, 0.3, 500)
-
+A_VALS = np.linspace(1.450, 1.650, 1000)
+B_VALS = np.linspace(0.200, 0.230, 1000)
+B_FIX = 0.225
 N_ITER = 60_000
 TRANSIENT = 50_000
 TOTAL_TIME = int(1e6)
+WINDOW = 200
 
-# CORREÇÃO: WINDOW deve ser interpretado como o τ dos artigos
-# (número de passos por segmento de tempo finito).
-# Viana & Grebogi (2000) usam n=10 para mapas; aqui mantemos
-# WINDOW=100 como escolha do usuário (τ=100 iterações por segmento).
-WINDOW = 10
-
-ESCAPE_RADIUS = 1e3
+ESCAPE_RADIUS = 10
 
 DELTA = 1e-15
 
@@ -58,7 +52,7 @@ STATE0 = np.array([
 
 MAX_PERIOD = 16
 
-OUTPUT_PREFIX = f"fig1_space_param_cuda_sigma{EPSILON}_DELTA{DELTA}_mle_p_fracpos"
+OUTPUT_PREFIX = f"teste_space_param"
 RECALCULATE = True
 if RECALCULATE:
     # ============================================================
@@ -558,7 +552,7 @@ if RECALCULATE:
         "period":      period_grid.ravel()
     })
 
-    csv_name = f"../data/space_params/{OUTPUT_PREFIX}.csv"
+    csv_name = f"{OUTPUT_PREFIX}.csv"
     df.to_csv(csv_name, index=False)
     print(f"CSV salvo: {csv_name}")
 
@@ -567,7 +561,7 @@ else:
     # Read data
     # -----------------------------------------------------------------------
     print("Lendo os dados...")
-    df = pd.read_csv(f"../data/space_params/{OUTPUT_PREFIX}.csv", comment='#')
+    df = pd.read_csv(f"{OUTPUT_PREFIX}.csv", comment='#')
     A_VALS = np.unique(df['a'].values)
     B_VALS = np.unique(df['b'].values)
     mle_grid  = df['mle'].values.reshape(len(A_VALS), len(B_VALS))
@@ -580,15 +574,27 @@ if __name__ == '__main__':
     # -----------------------------------------------------------------------
     # Plot  (inalterado)
     # -----------------------------------------------------------------------
+    import os
+    import sys
     from string import ascii_lowercase
     from pynamicalsys import PlotStyler
-    from utils.plotting import make_period_cmap
+
+    # Permite executar o script diretamente sem pacote pai.
+    # A raiz do repositório fica um nível acima de Revisor7Analysis.
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    if repo_root not in sys.path:
+        sys.path.insert(0, repo_root)
+
+    # Importa o helper do repositório; não há pacote pai quando o arquivo é
+    # executado como script standalone.
+    from scripts.utils.plotting import make_period_cmap
+
     import matplotlib.gridspec as gridspec
     CM = 1 / 2.54
 
-    cmap_period = make_period_cmap(N = 9, p_min=5)
+    cmap_period = make_period_cmap(N=9, p_min=5)
 
-    ps = PlotStyler(fontsize=18, ticks_on_all_sides=False)
+    ps = PlotStyler(fontsize=20, ticks_on_all_sides=False)
     ps.apply_style()
     fig = plt.figure(figsize=((35*CM, 10*CM)))
     gs = gridspec.GridSpec(
@@ -599,17 +605,24 @@ if __name__ == '__main__':
     )
 
     ax1 = fig.add_subplot(gs[0])
-    ax2 = fig.add_subplot(gs[1])
-    ax3 = fig.add_subplot(gs[2])
+    ax2 = fig.add_subplot(gs[1], sharey=ax1)
+    ax3 = fig.add_subplot(gs[2], sharey=ax1)
     axes = [ax1, ax2, ax3]
 
+    # cmap_orig = plt.get_cmap('berlin')
+    # pontos = [0.0, 0.5 - 0.005, 0.5 - 0.005, 0.5 + 0.005, 0.5 + 0.005, 1.0]
+    # cores = [cmap_orig(0.0), cmap_orig(0.495), 'cyan', 'cyan', cmap_orig(0.505), cmap_orig(1.0)]
+    # cmap_custom = mcolors.LinearSegmentedColormap.from_list('berlin_cyan', list(zip(pontos, cores)))
+    # hm1 = axes[0].pcolor(A_VALS, B_VALS, mle_grid.T, vmin=-0.501, vmax=0.501, cmap=cmap_custom)
+
+    # 3. Usa no seu gráfico
     hm1 = axes[0].pcolor(A_VALS, B_VALS, mle_grid.T, vmin=-0.501, vmax=0.501, cmap='berlin')
     plt.colorbar(hm1, aspect=40, pad=0.02, location="top")
     axes[0].set_title(r'$\lambda_1$', loc='left', x=-0.01, y=1.15, pad=10)
     axes[0].set_xlabel(r'$a$')
     axes[0].set_ylabel(r'$b$')
 
-    hm2 = axes[1].pcolor(A_VALS, B_VALS, period_grid.T, vmin=5, vmax=15, cmap=cmap_period.cmap)
+    hm2 = axes[2].pcolor(A_VALS, B_VALS, period_grid.T, vmin=5, vmax=15, cmap=cmap_period.cmap)
     cbar = plt.colorbar(hm2, aspect=40, pad=0.02, location="top")
     bounds = np.linspace(5, 15, 11)
     ticks = (bounds[:-1] + bounds[1:]) / 2
@@ -618,18 +631,19 @@ if __name__ == '__main__':
     cbar.set_ticks(ticks)
     cbar.set_ticklabels(tick_labels)
     
-    axes[1].set_title(r'$p$', loc='left', x=-0.01, y=1.15, pad=10)
-    axes[1].set_xlabel(r'$a$')
+    # axes[1].set_title(r'$p$', loc='left', x=-0.01, y=1.15, pad=10)
+    # axes[1].set_xlabel(r'$a$')
 
     # hm2 = axes[1].pcolor(A_VALS, B_VALS, tle_grid.T, vmin=-0.501, vmax=0.501, cmap='berlin')
     # plt.colorbar(hm2, aspect=40, pad=0.02, location="top")
     # axes[1].set_title(r'$\lambda_\perp$', loc='left', x=-0.01, y=1.15, pad=10)
     # axes[1].set_xlabel(r'$a$')
 
-    hm2 = axes[2].pcolor(A_VALS, B_VALS, frac_grid.T, vmin=0., vmax=1., cmap='nipy_spectral_r')
+    hm2 = axes[1].pcolor(A_VALS, B_VALS, frac_grid.T, vmin=0., vmax=1., cmap='nipy_spectral_r')
     plt.colorbar(hm2, aspect=40, pad=0.02, location="top")
-    axes[2].set_title(rf'$f_{{{(WINDOW)}}}^+$', loc='left', x=-0.01, y=1.15, pad=10)
-    axes[2].set_xlabel(r'$a$')
+    axes[1].set_title(rf'$f_{{{(WINDOW)}}}^+$', loc='left', x=-0.01, y=1.15, pad=10)
+    axes[1].set_xlabel(r'$a$')
+    
     # escape_plot = np.asarray(esc_grid, dtype=np.float64)
     # hm = axes[2].pcolormesh(
     #     A_VALS,
@@ -642,7 +656,7 @@ if __name__ == '__main__':
     # axes[2].set_title(r'$T_{\mathrm{esc}}$', loc='left', x=-0.01, y=1.15, pad=10)
     # axes[2].set_xlabel(r'$a$')
 
-    _bbox = {"facecolor": "w", "alpha": 0.75, "linewidth": 0.0, "pad": 1}
+    _bbox = {"facecolor": "w", "alpha": 1., "linewidth": 0.0, "pad": 1}
     if EPSILON == 0.005:
         idx_fig = 0
     elif EPSILON == 0.05:
@@ -659,43 +673,98 @@ if __name__ == '__main__':
 
 
     scatter_infos = {
-        # 'filled' : {
-        #     'x':1.460,
-        #     'y':0.225,
-        #     's':100,
-        #     'color': "#35CE21",
-        #     'marker':'o'
-        # },
+        'filled' : {
+            'x':1.4510,
+            'y':B_FIX,
+            's':100,
+            'color': "#35CE21",
+            'marker':'o'
+        },
+        'blowout_1' : {
+            'x':1.4638527705541107,
+            'y':B_FIX,
+            's':100,
+            'color': "#AA2816",
+            'marker':'v'
+        },
+        'blowout_2' : {
+            'x':1.5390326065213041,
+            'y':B_FIX,
+            's':100,
+            'color': "#AA2816",
+            'marker':'^'
+        },
         # 'escape' : {
         #     'x':1.510,
-        #     'y':0.225,
+        #     'y':B_FIX,
         #     's':150,
         #     'color': "#F93E25",
         #     'marker':'^'
         # },
-        # 'riddled':{
-        #     'x':1.528,
-        #     'y':0.225,
-        #     's':100,
-        #     'color': "#1f77b4",
-        #     'marker': 's'
-        # },
+        'riddled':{
+            'x':1.550,
+            'y':B_FIX,
+            's':100,
+            'color': "#1f77b4",
+            'marker': 's'
+        },
     }
+
+    extra_markers = [
+        # (1.4500, 'lime', 'v', 'p=5'),
+        # (1.4825, 'magenta', '^', 'chaos'),
+        # (1.5350, 'red', '<', 'int. crisis'),
+        # (1.5655, 'blue', '>', 'ext. crisis'),
+        # (1.6000, 'goldenrod', '*', 'escape')
+    ]
 
     for i, ax in enumerate(axes):
         ax.text(0.01, 0.92, rf"({ascii_lowercase[i]})", bbox=_bbox, transform=ax.transAxes)
         ax.set_xlim(A_VALS.min(), A_VALS.max())
-        ax.set_ylim(B_VALS.min(), 0.25)
+        ax.set_ylim(B_VALS.min(), B_VALS.max())
+        ax.tick_params(axis='both', which='major', pad=10)
         if scatter_infos:
             ax.axhline(
                 scatter_infos['filled']['y'],
                 color='gray',
                 ls='--',
-                lw=0.8
+                lw=1.1,
+                zorder=1
             )
 
-            for key, info in scatter_infos.items():
-                ax.scatter(info['x'], info['y'], c=info['color'], s=info['s'], marker=info['marker'], edgecolors='black', linewidth=0.5, zorder=5)
+        if extra_markers:
+            ax.axhline(
+                0.225,
+                color='gray',
+                ls='--',
+                lw=1.1,
+                zorder=1
+            )
+            for x, color, marker, label in extra_markers:
+                ax.scatter(
+                    x, 0.225,
+                    c=color,
+                    marker=marker,
+                    s=70,
+                    edgecolors='black',
+                    linewidth=0.5,
+                    zorder=6,
+                    label=label
+                )
+                # ax.annotate(
+                #     label,
+                #     (x, 0.225),
+                #     xytext=(4, 4),
+                #     textcoords='offset points',
+                #     fontsize=9,
+                #     color='black',
+                #     zorder=7
+                # )
 
-    plt.savefig(f'{OUTPUT_PREFIX}.png', dpi=300)
+        for key, info in scatter_infos.items():
+            print(key, info)
+            ax.scatter(info['x'], info['y'], c=info['color'], s=info['s'], marker=info['marker'], edgecolors='black', linewidth=0.5, zorder=5)
+    axes[1].tick_params(axis='y', labelleft=False)
+    axes[2].tick_params(axis='y', labelleft=False)
+    plt.savefig(f'{OUTPUT_PREFIX}.png', dpi=300, bbox_inches='tight')
     print(f"FIGURA salva: {OUTPUT_PREFIX}.png")

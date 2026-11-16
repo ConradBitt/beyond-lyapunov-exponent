@@ -101,7 +101,7 @@ def load_uncertainty(a, coupling):
     path = uncert_path(a, b, coupling, delta)
     meta = parse_metadata_params(path)
 
-    df = pd.read_csv(path, comment='#', header=0)
+    df = pd.read_csv(path)
     epsilons = df['epsilon'].to_numpy(dtype=float)
     fracs    = df['fraction'].to_numpy(dtype=float)
 

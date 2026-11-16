@@ -1,0 +1,55 @@
+\begin{table}
+\caption{Prime UPOs found for $a=1.525$, $b=0.225$, and $\sigma=0.0219$. For each period $p=1,\ldots,15$, a multi-start Newton-Raphson method to solve $F^p(\mathbf{X^{[S]}})=\mathbf{X^{[S]}}$, with up to 5,000 initial guesses per batch in the Newton search domain $\mathbf{X}_0 \in [-1.5,1.5]^2$. At most 20 batches were run per period, stopping after 3 consecutive batches without a new orbit. Subharmonic solutions and duplicates were discarded. The numerical search does not guarantee that all existing orbits were found.}
+\label{tab:upos-por-periodo}
+\begin{tabular}{rrrrrrr}
+\toprule
+$p$ & No. UPOs & $|\lambda_{\parallel}|<1$ & $|\lambda_{\perp}|<1$ & $|\lambda_{\parallel}|>1$ & $|\lambda_{\perp}|>1$ & View on the bif. diagram? \\
+\midrule
+1 & 2 & 0 & 0 & 2 & 2 & No \\
+2 & 1 & 0 & 0 & 1 & 1 & No \\
+4 & 1 & 0 & 0 & 1 & 1 & No \\
+5 & 2 & 0 & 0 & 2 & 2 & No \\
+6 & 4 & 1 & 1 & 3 & 3 & Yes \\
+7 & 4 & 0 & 0 & 4 & 4 & No \\
+8 & 5 & 0 & 0 & 5 & 5 & No \\
+9 & 8 & 0 & 0 & 8 & 8 & No \\
+10 & 11 & 0 & 0 & 11 & 11 & No \\
+11 & 16 & 0 & 0 & 16 & 16 & No \\
+12 & 25 & 0 & 0 & 25 & 25 & No \\
+13 & 42 & 0 & 0 & 42 & 42 & No \\
+14 & 60 & 0 & 0 & 60 & 60 & No \\
+15 & 88 & 0 & 1 & 88 & 87 & No \\
+16 & 131 & 0 & 0 & 131 & 131 & No \\
+17 & 204 & 0 & 0 & 204 & 204 & No \\
+18 & 306 & 0 & 0 & 306 & 306 & No \\
+19 & 475 & 0 & 0 & 475 & 475 & No \\
+20 & 718 & 0 & 0 & 718 & 718 & No \\
+21 & 1033 & 0 & 0 & 1033 & 1033 & No \\
+22 & 1359 & 0 & 0 & 1359 & 1359 & No \\
+23 & 1733 & 0 & 0 & 1733 & 1733 & No \\
+24 & 1990 & 0 & 0 & 1990 & 1990 & No \\
+25 & 2471 & 0 & 0 & 2471 & 2471 & No \\
+26 & 2510 & 0 & 0 & 2510 & 2510 & No \\
+27 & 2441 & 0 & 0 & 2441 & 2441 & No \\
+28 & 2323 & 0 & 0 & 2323 & 2323 & No \\
+29 & 2037 & 0 & 0 & 2037 & 2037 & No \\
+30 & 1726 & 0 & 0 & 1726 & 1726 & No \\
+31 & 1637 & 0 & 0 & 1637 & 1637 & No \\
+32 & 1264 & 0 & 0 & 1264 & 1264 & No \\
+33 & 855 & 0 & 0 & 855 & 855 & No \\
+34 & 641 & 0 & 0 & 641 & 641 & No \\
+35 & 482 & 0 & 0 & 482 & 482 & No \\
+36 & 296 & 0 & 0 & 296 & 296 & No \\
+37 & 283 & 0 & 0 & 283 & 283 & No \\
+38 & 182 & 0 & 0 & 182 & 182 & No \\
+39 & 104 & 0 & 0 & 104 & 104 & No \\
+40 & 66 & 0 & 0 & 66 & 66 & No \\
+41 & 27 & 0 & 0 & 27 & 27 & No \\
+42 & 20 & 0 & 0 & 20 & 20 & No \\
+43 & 17 & 0 & 0 & 17 & 17 & No \\
+44 & 1 & 0 & 0 & 1 & 1 & No \\
+46 & 1 & 0 & 0 & 1 & 1 & No \\
+50 & 1 & 0 & 0 & 1 & 1 & No \\
+\bottomrule
+\end{tabular}
+\end{table}
