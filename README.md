@@ -1,6 +1,6 @@
 # Beyond the largest lyapunov exponent: characterizing periodic attractor robustness and crisis dynamics in coupled Hénon maps
 
-This repository contains the scripts and numerical simulation code used in the study of the robustness of periodic attractors in coupled nonlinear systems. The main focus is to investigate the limitations of the **largest Lyapunov exponent** in characterizing dynamics at crisis boundaries.
+This repository contains the scripts and numerical simulation code used in the study of the robustness of periodic attractors in coupled nonlinear systems. The main focus is to investigate the limitations of the **largest Lyapunov exponent** in characterizing periodic dynamics at crisis boundaries.
 
 **Key Features:**
 *   **Model:** Implementation of two symmetrically coupled Hénon maps.
@@ -12,9 +12,26 @@ This repository contains the scripts and numerical simulation code used in the s
 *   **Objective:** To reproduce the results demonstrating how periodic structures embedded in crisis regions exhibit severe loss of predictability, requiring metrics beyond the standard Lyapunov exponent.
 
 
-**How to Cite:**
-If you use this code in your research, please cite the associated article:
-*[Insert Full Article Reference Here]*
+## How to Cite
+
+If you use this code or data in your research, please cite the associated publication:
+
+> C. F. Bittencourt, R. L. Viana, I. L. Caldas, and J. D. Szezech, "Beyond the largest Lyapunov exponent: Characterizing periodic attractor robustness and crisis dynamics in coupled Hénon maps," *Chaos, Solitons & Fractals* **215**, 119542 (2027). DOI: [10.1016/j.chaos.2026.119542](https://doi.org/10.1016/j.chaos.2026.119542)
+
+**BibTeX:**
+```bibtex
+@article{BITTENCOURT2027119542,
+  title = {Beyond the largest Lyapunov exponent: Characterizing periodic attractor robustness and crisis dynamics in coupled Hénon maps},
+  journal = {Chaos, Solitons & Fractals},
+  volume = {215},
+  pages = {119542},
+  year = {2027},
+  issn = {0960-0779},
+  doi = {https://doi.org/10.1016/j.chaos.2026.119542},
+  url = {https://sciencedirect.com},
+  author = {Conrado F. Bittencourt and Ricardo L. Viana and Iberê L. Caldas and José D. Szezech}
+}
+```
 
 ## **License:**
 This project is licensed under the **MIT** license. Feel free to use, modify, and distribute the code.
